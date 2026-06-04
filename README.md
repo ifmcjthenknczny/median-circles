@@ -15,7 +15,7 @@ The project consists of three main components:
 .
 ├── analyzer.py        # Core logic: Image -> JSON
 ├── visualize.py       # Rendering logic: JSON -> PNG
-├── main.py    # Pipeline manager
+├── main.py             # Pipeline manager
 ├── config.py          # Global settings & directory paths
 ├── input/             # Drop your images here
 ├── json/               # Auto-generated intermediate data
