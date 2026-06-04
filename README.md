@@ -80,7 +80,7 @@ To keep the codebase clean and maintainable, all directory names and global para
 * **`TMP_DIR`**: Used for storing intermediate JSON color data.
 * **`OUTPUT_DIR`**: The destination for the final rendered images.
 * **`GRID_SIZE`**: Defines the density of the analysis (defaults to 5 for a 5x5 grid).
-* **`CELL_SIZE` & `MARGIN**`: Controls the resolution and spacing of the output visualization.
+* **`CELL_SIZE`** & **`MARGIN`**: Controls the resolution and spacing of the output visualization.
 
 The `orchestrator.py` automatically reads these values and **creates the required folders** if they don't exist, so you don't have to set up the environment manually.
 
