@@ -1,8 +1,8 @@
 # Median Circles
 
-A modular Python toolset designed to analyze an image's color distribution and generate a minimalist geometric representation. The project is built with **decoupling** in mind, separating data analysis from image rendering.
+A set of modular decoupled Python scripts designed to analyze an image's color distribution and generate a minimalist geometric representation. The project separates image analysis from image rendering.
 
-## 🏗 Architecture
+## Architecture
 
 The project consists of three main components:
 
@@ -10,7 +10,20 @@ The project consists of three main components:
 2. **`visualizer.py`**: Consumes color data and renders a 5x5 grid of circles on a white canvas.
 3. **`orchestrator.py`**: The "brain" that manages the pipeline, piping data between the analyzer and the visualizer without using intermediate files.
 
-## 🚀 Getting Started
+## Default File Tree
+```text
+.
+├── analyzer.py        # Core logic: Image -> JSON
+├── visualize.py       # Rendering logic: JSON -> PNG
+├── orchestrator.py    # Pipeline manager
+├── config.py          # Global settings & directory paths
+├── input/             # Drop your images here
+├── tmp/               # Auto-generated intermediate data
+└── output/            # Auto-generated results
+
+```
+
+## Getting Started
 
 This project uses **[uv](https://github.com/astral-sh/uv)** for seamless dependency management. You don't need to manually install `Pillow` or `numpy` in your global environment.
 
@@ -21,23 +34,23 @@ This project uses **[uv](https://github.com/astral-sh/uv)** for seamless depende
 
 ### Usage
 
-To run the entire pipeline, simply execute the orchestrator and provide the path to your source image:
+To run the entire pipeline, simply execute the orchestrator and provide the name to your source image, which should be placed in `input` directory:
 
 ```bash
-python orchestrator.py <image_filename>.<image_extension>
+python3 orchestrator.py <image_filename>.<image_extension>
 
 ```
 
-## 🛠 Script Details
+## Script Details
 
-### 1. Analyzer (`analyze.py`)
+### 1. Analyzer (`analyzer.py`)
 
 Calculates the median RGB value for each cell in a 5x5 grid.
 
 * **Input**: Image file path.
 * **Output**: JSON array of RGB tuples via `stdout`.
 
-### 2. Visualizer (`visualize.py`)
+### 2. Visualizer (`visualizer.py`)
 
 Renders a high-resolution (1000x1000px) image.
 
@@ -52,18 +65,24 @@ The glue code that uses `subprocess` to run the scripts.
 * Handles the data flow via memory pipes.
 * Logs the final absolute path of the generated image.
 
-## 🎨 Example Output
+## Example Output
 
 The pipeline transforms a standard photograph into a clean, 5x5 dot-matrix representation:
 
 * **Step 1**: Source Image → 25 Median Color Points (JSON).
 * **Step 2**: JSON → `output/<timestamp>.png` (Minimalist Grid).
 
-## 📜 License
+### Configuration (`config.py`)
 
-MIT - Feel free to use and modify for your own projects.
+To keep the codebase clean and maintainable, all directory names and global parameters are managed through `config.py`. This ensures a single source of truth for the entire pipeline.
 
----
+* **`INPUT_DIR`**: Where the source images should be placed.
+* **`TMP_DIR`**: Used for storing intermediate JSON color data.
+* **`OUTPUT_DIR`**: The destination for the final rendered images.
+* **`GRID_SIZE`**: Defines the density of the analysis (defaults to 5 for a 5x5 grid).
+* **`CELL_SIZE` & `MARGIN**`: Controls the resolution and spacing of the output visualization.
+
+The `orchestrator.py` automatically reads these values and **creates the required folders** if they don't exist, so you don't have to set up the environment manually.
 
 ### Pro-tip:
 
