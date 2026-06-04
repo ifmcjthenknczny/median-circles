@@ -8,17 +8,17 @@ The project consists of three main components:
 
 1. **`analyzer.py`**: Extracts the median color from a 5x5 grid of the source image. Outputs raw JSON data to `stdout`.
 2. **`visualizer.py`**: Consumes color data and renders a 5x5 grid of circles on a white canvas.
-3. **`orchestrator.py`**: The "brain" that manages the pipeline, piping data between the analyzer and the visualizer without using intermediate files.
+3. **`main.py`**: The orchestrator "brain" that manages the pipeline, piping data between the analyzer and the visualizer without using intermediate files.
 
 ## Default File Tree
 ```text
 .
 ├── analyzer.py        # Core logic: Image -> JSON
 ├── visualize.py       # Rendering logic: JSON -> PNG
-├── orchestrator.py    # Pipeline manager
+├── main.py    # Pipeline manager
 ├── config.py          # Global settings & directory paths
 ├── input/             # Drop your images here
-├── tmp/               # Auto-generated intermediate data
+├── json/               # Auto-generated intermediate data
 └── output/            # Auto-generated results
 
 ```
@@ -34,10 +34,10 @@ This project uses **[uv](https://github.com/astral-sh/uv)** for seamless depende
 
 ### Usage
 
-To run the entire pipeline, simply execute the orchestrator and provide the name to your source image, which should be placed in `input` directory:
+To run the entire pipeline, simply execute the orchestrator (`main.py`) and provide the name to your source image, which should be placed in `input` directory:
 
 ```bash
-python3 orchestrator.py <image_filename>.<image_extension>
+python3 main.py <image_filename>.<image_extension>
 
 ```
 
@@ -57,7 +57,7 @@ Renders a high-resolution (1000x1000px) image.
 * **Input**: JSON string of colors, output filename.
 * **Output**: A `.png` file featuring colored circles on a white background.
 
-### 3. Orchestrator (`orchestrator.py`)
+### 3. Orchestrator (`main.py`)
 
 The glue code that uses `subprocess` to run the scripts.
 
@@ -76,13 +76,13 @@ The pipeline transforms a standard photograph into a clean, 5x5 dot-matrix repre
 
 To keep the codebase clean and maintainable, all directory names and global parameters are managed through `config.py`. This ensures a single source of truth for the entire pipeline.
 
-* **`INPUT_DIR`**: Where the source images should be placed.
-* **`TMP_DIR`**: Used for storing intermediate JSON color data.
-* **`OUTPUT_DIR`**: The destination for the final rendered images.
+* **`DIRECTORIES -> INPUT`**: Where the source images should be placed.
+* **`DIRECTORIES -> JSON`**: Used for storing intermediate JSON color data.
+* **`DIRECTORIES -> OUTPUT`**: The destination for the final rendered images.
 * **`GRID_SIZE`**: Defines the density of the analysis (defaults to 5 for a 5x5 grid).
 * **`CELL_SIZE`** & **`MARGIN`**: Controls the resolution and spacing of the output visualization.
 
-The `orchestrator.py` automatically reads these values and **creates the required folders** if they don't exist, so you don't have to set up the environment manually.
+The `main.py` automatically reads these values and **creates the required folders** if they don't exist, so you don't have to set up the environment manually.
 
 ### Pro-tip:
 

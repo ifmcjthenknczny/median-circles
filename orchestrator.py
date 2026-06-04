@@ -5,14 +5,14 @@ from time import time
 import config
 
 def run_pipeline(input_image_name):
-    for folder in config.REQUIRED_FOLDERS:
+    for folder in config.DIRECTORIES.values():
         os.makedirs(folder, exist_ok=True)
 
     timestamp = int(time())
     
-    input_image_path = os.path.join(config.INPUT_DIR, input_image_name)
-    color_json_path = os.path.join(config.JSON_DIR, f"{timestamp}.json")
-    output_image_path = os.path.join(config.OUTPUT_DIR, f"{timestamp}.png")
+    input_image_path = os.path.join(config.DIRECTORIES["INPUT"], input_image_name)
+    color_json_path = os.path.join(config.DIRECTORIES["JSON"], f"{timestamp}.json")
+    output_image_path = os.path.join(config.DIRECTORIES["OUTPUT"], f"{timestamp}.png")
     
     print(f"[*] Starting pipeline for: {input_image_name}")
 
