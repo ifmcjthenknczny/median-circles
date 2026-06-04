@@ -1,0 +1,11 @@
+import os
+
+INPUT_DIR = "input"
+JSON_DIR = "json"
+OUTPUT_DIR = "output"
+
+GRID_SIZE = 5
+CELL_SIZE = 200
+MARGIN = 15
+
+REQUIRED_FOLDERS = [INPUT_DIR, JSON_DIR, OUTPUT_DIR]

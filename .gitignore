@@ -1,0 +1,6 @@
+.serena
+output/*
+input/*
+tmp/*
+json/*
+__pycache__/*
