@@ -1,0 +1,33 @@
+[project]
+name = "median-circles"
+version = "0.1.0"
+description = "A modular Python pipeline to analyze image color distribution and generate minimalist geometric representations."
+readme = "README.md"
+requires-python = ">=3.12"
+authors = [
+    { name = "Maciej Konieczny", email = "maciej.konieczny.1993@gmail.com" }
+]
+license = { text = "CC-BY-NC-4.0" }
+dependencies = [
+    "pillow>=10.0.0",
+    "numpy>=1.26.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.0.0",
+    "pre-commit>=3.5.0",
+]
+
+[tool.uv.tasks]
+main = "python main.py"
+
+analyze = "python analyzer.py"
+visualize = "python visualize.py"
+
+format = "black ."
+check-format = "black --check ."
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
