@@ -4,17 +4,22 @@ import os
 from time import time
 import config
 
-def run_pipeline(input_image_name):
+def run_pipeline(input_image_filename):
     for folder in config.DIRECTORIES.values():
         os.makedirs(folder, exist_ok=True)
 
-    timestamp = int(time())
-    
-    input_image_path = os.path.join(config.DIRECTORIES["INPUT"], input_image_name)
-    color_json_path = os.path.join(config.DIRECTORIES["JSON"], f"{timestamp}.json")
-    output_image_path = os.path.join(config.DIRECTORIES["OUTPUT"], f"{timestamp}.png")
-    
-    print(f"[*] Starting pipeline for: {input_image_name}")
+    input_image_path = os.path.join(config.DIRECTORIES["INPUT"], input_image_filename)
+
+    if not os.path.exists(input_image_path):
+        print(f'[-] Input file does not exist. Check file extension and whether it exists in the "input" directory')
+        return
+
+    image_name = input_image_filename.rsplit('.', 1)[0]
+
+    color_json_path = os.path.join(config.DIRECTORIES["JSON"], f"{image_name}_{int(time())}.json")
+    output_image_path = os.path.join(config.DIRECTORIES["OUTPUT"], f"{image_name}.png")
+
+    print(f"[*] Starting pipeline for: {input_image_filename}")
 
     subprocess.run(
         ["uv", "run", "--quiet", "analyzer.py", input_image_path, color_json_path],

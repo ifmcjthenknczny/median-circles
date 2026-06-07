@@ -38,7 +38,6 @@ To run the entire pipeline, simply execute the orchestrator (`main.py`) and prov
 
 ```bash
 python3 main.py <image_filename>.<image_extension>
-
 ```
 
 ## Script Details
@@ -67,10 +66,10 @@ The glue code that uses `subprocess` to run the scripts.
 
 ## Example Output
 
-The pipeline transforms a standard photograph into a clean, 5x5 dot-matrix representation:
+The pipeline transforms a standard photograph into a clean, dot-matrix representation, 5x5 by default:
 
-* **Step 1**: Source Image → 25 Median Color Points (JSON).
-* **Step 2**: JSON → `output/<timestamp>.png` (Minimalist Grid).
+* **Step 1**: Source Image → Median Color Points JSON Data `json/<original_filename>_<timestamp>.json`
+* **Step 2**: JSON → `output/<original_filename>.png` (Minimalist Grid).
 
 ### Configuration (`config.py`)
 
@@ -90,7 +89,6 @@ Since the scripts use `uv` inline metadata, you can also run them individually f
 
 ```bash
 uv run analyze.py image.jpg
-
 ```
 
 ## License
