@@ -1,6 +1,3 @@
-# /// script
-# dependencies = ["pillow"]
-# ///
 import sys, json
 from PIL import Image, ImageDraw
 import config

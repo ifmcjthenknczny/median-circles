@@ -1,6 +1,3 @@
-# /// script
-# dependencies = ["pillow", "numpy"]
-# ///
 import sys, json, numpy as np
 from PIL import Image
 import config
